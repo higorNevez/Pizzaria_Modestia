@@ -7,3 +7,6 @@ Página inicial com destaque para promoções e especialidades
 Cardápio interativo
 Sistema de pedidos online
 Informações de contato e localização
+
+📌 Sobre o projeto
+Nosso objetivo foi criar uma experiência digital envolvente para a pizzaria, combinando a identidade visual com uma navegação intuitiva.
