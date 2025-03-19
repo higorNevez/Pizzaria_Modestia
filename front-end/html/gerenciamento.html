@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Cardápio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+
+    <style>
+        h3{
+        font-family: "Fjalla One", sans-serif;
+        font-size: 2em; 
+        color: #fff; 
+        text-align: center; 
+        margin-top: 100px; 
+        }
+
+        ul{
+        font-family: "Fjalla One", sans-serif;
+        font-size: 2.5em; 
+        color: #000000; 
+        text-align: center; 
+        margin-top: 0px;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label{
+        font-family: "Fjalla One", sans-serif;
+        font-size: 1em; 
+        color: #fff; 
+        text-align: center; 
+        margin-top: 0px; 
+        font-weight: bold;
+        color: #333;
+        display: block; 
+        margin-bottom: 5px; 
+        }
+
+        form {
+        text-align: center; 
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #4CAF50; 
+        }
+
+        .buttonadd {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: rgb(255, 253, 253);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+
+<body class="gerenciamento">
+    <header>
+        <nav>
+            <div class="container">
+                <a href="#" class="logo">
+                    <img src="./img/logo.png" alt="Logo">
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Home</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="cardapio.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Cardápio</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="carrinho.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Carrinho</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="sobre.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Sobre Nós</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
+    <h1>Gerenciamento de Cardápio</h1>
+
+    <!-- adicionar uma nova pizza -->
+    <div>
+        <h1>Adicionar Pizza</h1>
+        <form id="form-add-pizza">
+            <label>Nome da Pizza:</label>
+            <input type="text" id="pizza-nome" required><br>
+
+            <label>Descrição:</label>
+            <input type="text" id="pizza-descricao" required><br>
+
+            <label>Preço P (Pequena):</label>
+            <input type="number" id="pizza-preco-p" required><br>
+
+            <label>Preço M (Média):</label>
+            <input type="number" id="pizza-preco-m" required><br>
+
+            <label>Preço G (Grande):</label>
+            <input type="number" id="pizza-preco-g" required><br>
+
+            <label for="imagem">Imagem da Pizza:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*" required>
+            
+
+            <button type="submit">Adicionar Pizza</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Pizzas no Cardápio</h3>
+        <ul id="lista-pizzas"></ul>
+    </div>
+
+    <script>
+        // Função para adicionar pizza
+        function adicionarPizza(nome, descricao, precoP, precoM, precoG, imagem) {
+            let pizzas = JSON.parse(localStorage.getItem('pizzas')) || [];
+            const novaPizza = { nome, descricao, precoP, precoM, precoG, imagem };
+
+            pizzas.push(novaPizza);
+            localStorage.setItem('pizzas', JSON.stringify(pizzas));
+
+            // Enviar dados para o servidor com FormData
+            const formData = new FormData();
+            formData.append("nome", nome);
+            formData.append("descricao", descricao);
+            formData.append("precoP", precoP);
+            formData.append("precoM", precoM);
+            formData.append("precoG", precoG);
+            formData.append("imagem", imagem);
+
+            fetch("salvar_pizza.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.sucesso) {
+                    console.log("Pizza salva no banco de dados!");
+                    atualizarListaPizzas();
+                } else {
+                    console.error("Erro ao salvar pizza:", data.erro);
+                }
+            })
+            .catch(err => console.error("Erro de comunicação:", err));
+        }
+
+        // Função para atualizar lista de pizzas
+        function atualizarListaPizzas() {
+            const listaPizzas = document.getElementById('lista-pizzas');
+            listaPizzas.innerHTML = '';
+            
+            fetch("buscar_pizzas.php") // Endpoint que retorna as pizzas do banco
+                .then(response => response.json())
+                .then(pizzas => {
+                    if (Array.isArray(pizzas)) {
+                        pizzas.forEach(pizza => {
+                            listaPizzas.innerHTML += `
+                                <li>
+                                    <img src="${pizza.imagem}" alt="${pizza.nome}" style="width: 50px; height: 50px;"/>
+                                    <strong>${pizza.nome}</strong> - ${pizza.descricao}<br>
+                                    Preços: P - R$${pizza.precoP}, M - R$${pizza.precoM}, G - R$${pizza.precoG}
+                                    <button onclick="removerPizza(${pizza.id})">Remover</button>
+                                </li>
+                            `;
+                        });
+                    } else {
+                        console.error("Formato de dados inválido.");
+                    }
+                });
+        }
+
+        // Função para remover pizza
+        function removerPizza(id) {
+            fetch("remover_pizza.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.sucesso) {
+                    console.log("Pizza removida com sucesso!");
+                    atualizarListaPizzas(); // Atualiza a lista após a remoção
+                } else {
+                    console.error("Erro ao remover pizza:", data.erro);
+                }
+            })
+            .catch(err => console.error("Erro de comunicação:", err));
+        }
+
+        // Evento para enviar o formulário de adição de pizza
+        document.getElementById('form-add-pizza').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = document.getElementById('pizza-nome').value;
+            const descricao = document.getElementById('pizza-descricao').value;
+            const precoP = document.getElementById('pizza-preco-p').value;
+            const precoM = document.getElementById('pizza-preco-m').value;
+            const precoG = document.getElementById('pizza-preco-g').value;
+            
+            const imagemInput = document.getElementById('imagem');
+            const imagemUrl = imagemInput.files[0];
+    
+            adicionarPizza(nome, descricao, precoP, precoM, precoG, imagemUrl);
+        });
+
+        // Atualiza a lista de pizzas quando a página for carregada
+        window.onload = function() {
+            atualizarListaPizzas();
+        }
+        
+        // Função para pré-visualizar a imagem selecionada
+        document.getElementById('imagem').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

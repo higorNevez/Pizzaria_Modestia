@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+    <style>
+        h1{
+        font-family: "Fjalla One", sans-serif;
+        font-size: 2em; 
+        color: #000000; 
+        text-align: center; 
+        margin-top: 90px; 
+        }
+
+        .wrapper {
+        --font-color-dark: #000000;
+        --font-color-light: #fff;
+        --bg-color: #fff;
+        --main-color: #000000;
+        --secondary-color: #505050;
+        position: absolute;
+        width: 250px;
+        height: 33px;
+        background-color: var(--bg-color);
+        border: 2px solid var(--main-color);
+        border-radius: 34px;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 4px 4px var(--main-color);
+        top: 505px;
+        left: 42%;
+        }
+
+        @media screen and (max-width: 768px) {
+            .wrapper {
+            --font-color-dark: #000000;
+            --font-color-light: #fff;
+            --bg-color: #fff;
+            --main-color: #000000;
+            --secondary-color: #505050;
+            position: absolute;
+            width: 250px;
+            height: 33px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--main-color);
+            border-radius: 34px;
+            display: flex;
+            flex-direction: row;
+            box-shadow: 4px 4px var(--main-color);
+            top: 560px;
+            left: 19%;
+            }
+        }   
+
+        .option {
+        margin-right: 5px;
+        width: 80.5px;
+        height: 28px;
+        position: relative;
+        top: 2px;
+        left: 2px;
+        border-radius: 34px;
+        transition: 0.25s cubic-bezier(0, 0, 0, 1);
+        }
+
+        .option:last-child {
+        margin-right: 4px;
+        }
+
+        .option:hover {
+        background-color: var(--secondary-color);
+        }
+
+        .option:hover .span {
+        color: var(--font-color-light);
+        }
+
+        .input {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        appearance: none;
+        cursor: pointer;
+        }
+
+        .btn {
+        width: 100%;
+        height: 100%;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .span {
+        color: var(--font-color-dark);
+        }
+
+        .input:checked + .btn {
+        background-color: var(--main-color);
+        transition: 0.2s cubic-bezier(0, 0, 0, 1);
+        }
+
+        .input:checked + .btn .span {
+        color: var(--font-color-light);
+        transition: 0.25s cubic-bezier(0, 0, 0, 1);
+        }
+
+        .remover-btn {
+        background-color: #ff5252;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        }
+        .remover-btn:hover {
+        background-color: #ff3333;
+        }
+
+        .finalizar-btn {
+        font-family: "Viga", sans-serif;
+        background-color: #01c7c7;
+        bottom: 80px; 
+        color: white;
+        left: 50%;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-top: center;
+        display: block;
+        width: 30%;
+        text-align: center;
+        font-size: 18px;
+        position: absolute;
+        transform: translateX(-50%);
+        border-radius: 50px;
+        }
+        .finalizar-btn:hover {
+        background-color: #000000;
+        }
+
+        /* modal */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        
+        }
+        .modal-content {
+        background-color: #fff;
+        margin: 10%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        left: 40%;
+        position: absolute;
+        transform: translateX(-50%);
+        }
+        .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        }
+        .input-field {
+        width: 95%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        }
+
+        .finalizarmod-btn{
+        font-family: "Viga", sans-serif;
+        background-color: #01c7c7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 50px;
+
+        }
+
+        .total-container {
+        position: fixed;    
+        bottom: 0;          
+        width: 100%;        
+        text-align: center; 
+        padding: 10px 0;    
+        font-size: 10px;    
+        }
+
+        @media (max-width: 768px) {
+        .total-container {
+            font-size: 18px;
+            padding: 15px 0;
+        }
+        }
+
+        /* carrinho */
+
+        #carrinho {
+        margin-top: 20px;
+        }
+        .carrinho-item {
+        font-family: "Viga", sans-serif;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 500px;
+        background-color: #fff;
+        transform: translateX(-50%);
+        left: 50%;
+        position: relative;
+        width: 300px;
+        top: 130px;
+        }
+        .total {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="#" class="logo">
+                    <img src="./img/logo.png" alt="Logo">
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Home</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="cardapio.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Cardápio</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="carrinho.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Carrinho</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="sobre.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Sobre Nós</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    
+    <main>
+
+        <div id="carrinho-items">
+            <div class="total-container">
+                <h1><span id="total">0</span></h1>
+            </div>
+        </div>
+ 
+    </main>
+
+
+<body class="carrinho-background">
+
+    <div id="carrinho"></div>
+    <div class="total" id="total"></div>
+    
+    <div class="wrapper">
+      <div class="option">
+        <input checked value="Dinheiro" name="pagamento" type="radio" class="input" />
+        <div class="btn">
+          <span class="span">Dinheiro</span>
+        </div>
+      </div>
+      <div class="option">
+        <input value="Cartão" name="pagamento" type="radio" class="input" />
+        <div class="btn">
+          <span class="span">Cartão</span>
+        </div>
+      </div>
+      <div class="option">
+        <input value="PIX" name="pagamento" type="radio" class="input" />
+        <div class="btn">
+          <span class="span">PIX</span>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="finalizar-btn" onclick="abrirModal()">Finalizar Compra</button>
+
+    <!-- modal de endereço -->
+
+    <div id="enderecoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h1>Insira seu Endereço de Entrega</h1>
+            <form id="enderecoForm">
+                <input type="text" class="input-field" id="nome" placeholder="Nome Completo" required>
+                <input type="text" class="input-field" id="endereco" placeholder="Endereço" required>
+                <input type="text" class="input-field" id="cidade" placeholder="Cidade" required>
+                <input type="text" class="input-field" id="cep" placeholder="CEP" required>
+                <button class="finalizarmod-btn" onclick="finalizarPedido()">Confirmar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let carrinho = [];
+
+        function carregarCarrinho() {
+            const carrinhoSalvo = localStorage.getItem('carrinho');
+            if (carrinhoSalvo) {
+                carrinho = JSON.parse(carrinhoSalvo);
+                atualizarCarrinho();
+            }
+        }
+
+        function atualizarCarrinho() {
+            const carrinhoDiv = document.getElementById('carrinho');
+            carrinhoDiv.innerHTML = "";
+            let total = 0;
+
+            carrinho.forEach((item, index) => {
+                carrinhoDiv.innerHTML += `
+                    <div class="carrinho-item">
+                        <span>${item.pizza}</span>
+                        <span>R$ ${item.preco}</span>
+                        <button class="remover-btn" onclick="removerDoCarrinho(${index})">Remover</button>
+                    </div>`;
+                total += item.preco;
+            });
+
+            document.getElementById('total').innerText = "Total: R$ " + total.toFixed(2);
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);  
+            salvarCarrinho();  
+            atualizarCarrinho();  
+        }
+
+        function salvarCarrinho() {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        carregarCarrinho();  
+
+        const modal = document.getElementById("enderecoModal");
+
+        function abrirModal() {
+            modal.style.display = "block";
+        }
+
+        function fecharModal() {
+            modal.style.display = "none";
+        }
+
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+
+        
+        document.getElementById("enderecoForm").onsubmit = function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const endereco = document.getElementById('endereco').value;
+            const cidade = document.getElementById('cidade').value;
+            const cep = document.getElementById('cep').value;
+
+            alert(`Pedido confirmado!\nNome: ${nome}\nEndereço: ${endereco}, ${cidade}\nCEP: ${cep}`);
+            fecharModal();
+            localStorage.removeItem('carrinho');  
+            carrinho = [];  
+            atualizarCarrinho();
+        };
+
+        function finalizarPedido() {
+
+            let pedido = "";
+            let total = 0;
+            carrinho.forEach(item => {
+                pedido += `${item.pizza} - R$ ${item.preco.toFixed(2)}\n`;
+                total += item.preco;
+            });
+
+            const formaPagamento = document.querySelector('input[name="pagamento"]:checked').value;
+
+            const nome = document.getElementById('nome').value;
+            const endereco = document.getElementById('endereco').value;
+            const cidade = document.getElementById('cidade').value;
+            const cep = document.getElementById('cep').value;
+
+            const mensagem = `
+                *Pedido Confirmado!*
+
+                *Itens do pedido:*
+                ${pedido}
+
+                Nome: ${nome}
+                Endereço: ${endereco}, ${cidade}, CEP: ${cep}
+                
+                *Total:* R$ ${total.toFixed(2)}
+                *Forma de Pagamento:* ${formaPagamento}
+
+                Obs: Valores referente ao frete serão informados via WhatsApp
+
+                Agradecemos apreferência, se precisar de algo, é so chamar que em um instante respondemos!
+            `;
+
+            const mensagemCodificada = encodeURIComponent(mensagem);
+
+            const numeroWhatsApp = "5575991479048";
+            
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+
+            window.open(urlWhatsApp, '_blank');
+        }
+
+    </script>
+
+
+</body>
+
+</body>
+</html>

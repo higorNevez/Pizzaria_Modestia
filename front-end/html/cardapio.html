@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+</head>
+
+
+<body class="cardapio-background">
+    <header>
+        <nav>
+            <div class="container">
+                <a href="#" class="logo">
+                    <img src="./img/logo.png" alt="Logo">
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Home</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="cardapio.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Cardápio</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="carrinho.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Carrinho</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                    <a href="sobre.html" class="button type--C">
+                        <div class="button__line"></div>
+                        <div class="button__line"></div>
+                        <span class="button__text">Sobre Nós</span>
+                        <div class="button__drow1"></div>
+                        <div class="button__drow2"></div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    
+    <h1>Nosso Cardápio</h1>
+
+    </div>
+
+    <div class="pizza-list" id="pizza-list"></div>
+
+    <script>
+        let carrinho = [];
+
+        function carregarCarrinho() {
+            const carrinhoSalvo = localStorage.getItem('carrinho');
+            if (carrinhoSalvo) {
+                carrinho = JSON.parse(carrinhoSalvo);
+            }
+        }
+
+        function adicionarAoCarrinho(pizza, preco) {
+            carrinho.push({ pizza: pizza, preco: preco });
+            alert(pizza + " foi adicionada ao carrinho por R$ " + preco);
+            salvarCarrinho();
+        }
+
+        function salvarCarrinho() {
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        carregarCarrinho();
+
+        function carregarPizzas() {
+            const pizzaList = document.getElementById('pizza-list');
+            pizzaList.innerHTML = ''; // Limpar lista atual
+
+            // Fazer requisição ao servidor
+            fetch('listar_pizzas.php')
+                .then(response => response.json())
+                .then(pizzas => {
+                    pizzas.forEach(pizza => {
+                        pizzaList.innerHTML += `
+                            <div class="pizza-item">
+                                <h4>${pizza.nome}</h4>
+                                <img src="${pizza.imagem}" alt="${pizza.nome}">
+                                <p>${pizza.descricao}</p>
+                                <div class="buttons">
+                                    <button class="cssbuttons-io-button" onclick="adicionarAoCarrinho('${pizza.nome} P', ${pizza.precoP})">
+                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+                                        </svg>
+                                        <span>P - R$ ${pizza.precoP}</span>
+                                    </button>
+                                    <button class="cssbuttons-io-button" onclick="adicionarAoCarrinho('${pizza.nome} M', ${pizza.precoM})">
+                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+                                        </svg>
+                                        <span>M - R$ ${pizza.precoM}</span>
+                                    </button>
+                                    <button class="cssbuttons-io-button" onclick="adicionarAoCarrinho('${pizza.nome} G', ${pizza.precoG})">
+                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+                                        </svg>
+                                        <span>G - R$ ${pizza.precoG}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(err => console.error("Erro ao carregar pizzas:", err));
+        }
+
+        window.onload = function() {
+            carregarPizzas();
+        };
+
+    </script>
+
+
+</body>
+</html>
