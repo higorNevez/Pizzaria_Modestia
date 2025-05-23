@@ -22,7 +22,7 @@ function adicionarPizza(nome, descricao, precoP, precoM, precoG, imagem) {
     formData.append('precoG', precoG);
     formData.append('imagem', imagem);
 
-    fetch('salvar_pizza.php', {
+    fetch('../../back-end/php/salvar_pizza.php', {
         method: 'POST',
         body: formData,
     })
@@ -43,7 +43,7 @@ function atualizarListaPizzas() {
     const listaPizzas = document.getElementById('lista-pizzas');
     listaPizzas.innerHTML = '';
 
-    fetch('buscar_pizzas.php') // Endpoint que retorna as pizzas do banco
+    fetch('../../back-end/php/buscar_pizzas.php') // Endpoint que retorna as pizzas do banco
         .then((response) => response.json())
         .then((pizzas) => {
             if (Array.isArray(pizzas)) {
@@ -65,7 +65,7 @@ function atualizarListaPizzas() {
 
 // Função para remover pizza
 function removerPizza(id) {
-    fetch('remover_pizza.php', {
+    fetch('../../back-end/php/remover_pizza.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),

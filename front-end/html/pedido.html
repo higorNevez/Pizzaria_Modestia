@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status do Pedido</title>
+    <link rel="stylesheet" href="../css/pedido.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="#" class="logo">
+                    <img src="../img/logo.png" alt="Logo" />
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="button">Home</a>
+                    <a href="cardapio.html" class="button">Cardápio</a>
+                    <a href="carrinho.html" class="button">Carrinho</a>
+                    <a href="sobre.html" class="button">Sobre Nós</a>
+                    <a href="perfil.html" class="button">Perfil</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="pedido">
+        <div class="card">
+            <div class="left">
+                <img src="../uploads/pizza_20241205_225431_67522f27358a0.png" alt="Pizza de calabresa">
+            </div>
+            <div class="right">
+                <h2>Pizza de calabresa</h2>
+                <p class="value">descrição da pizza</p>
+                <h2>Valor:</h2>
+                <p class="value">R$ 500,00</p>
+                <h2>Endereço:</h2>
+                <p class="value">Rua Pericles, 123<br>00000-00 SP</p>
+                <h2>Forma de pagamento:</h2>
+                <p class="value">Credito</p>
+            </div>
+        </div>
+        <div class="container-status">
+            <h2>Status do Pedido</h2>
+            <div class="etapas">
+                <div class="etapa ativo" data-status="1">
+                    <div class="ponto"></div>
+                    <div class="texto">Pedido Realizado</div>
+                </div>
+                <div class="etapa" data-status="2">
+                    <div class="ponto"></div>
+                    <div class="texto">Em Preparo</div>
+                </div>
+                <div class="etapa" data-status="3">
+                    <div class="ponto"></div>
+                    <div class="texto">Em Rota</div>
+                </div>
+                <div class="etapa" data-status="4">
+                    <div class="ponto"></div>
+                    <div class="texto">Entregue</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="../../back-end/js/cardapio.js"></script>
+        <script src="../../back-end/js/mobile-menu.js"></script>
+    </footer>
+</body>
+</html>

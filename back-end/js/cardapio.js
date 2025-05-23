@@ -24,7 +24,7 @@ function carregarPizzas() {
     pizzaList.innerHTML = ''; // Limpar lista atual
 
     // Fazer requisição ao servidor
-    fetch('listar_pizzas.php')
+    fetch('../../back-end/php/listar_pizzas.php')
         .then((response) => response.json())
         .then((pizzas) => {
             pizzas.forEach((pizza) => {

@@ -43,6 +43,3 @@ function finalizarCompra() {
 if (document.getElementById('carrinho-items')) {
     mostrarCarrinho();
 }
-
-
-
