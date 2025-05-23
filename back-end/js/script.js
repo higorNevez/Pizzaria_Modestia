@@ -7,7 +7,6 @@ function adicionarAoCarrinho(nome, preco) {
 
 function adicionarAoCarrinho(nomePizza, preco) {
     alert(`Você adicionou ${nomePizza} ao carrinho por R$ ${preco.toFixed(2)}`);
-   
 }
 
 function mostrarCarrinho() {
@@ -16,7 +15,7 @@ function mostrarCarrinho() {
     carrinhoItems.innerHTML = '';
     let total = 0;
 
-    carrinho.forEach(item => {
+    carrinho.forEach((item) => {
         carrinhoItems.innerHTML += `<p>${item.nome} - R$ ${item.preco}</p>`;
         total += item.preco;
     });
@@ -28,14 +27,18 @@ function finalizarCompra() {
     const pagamento = document.getElementById('pagamento').value;
     let mensagem = 'Pedido:\n';
 
-    carrinho.forEach(item => {
+    carrinho.forEach((item) => {
         mensagem += `${item.nome} - R$ ${item.preco}\n`;
     });
 
-    mensagem += `Total: R$ ${carrinho.reduce((acc, item) => acc + item.preco, 0).toFixed(2)}\n`;
+    mensagem += `Total: R$ ${carrinho
+        .reduce((acc, item) => acc + item.preco, 0)
+        .toFixed(2)}\n`;
     mensagem += `Forma de Pagamento: ${pagamento}\n`;
 
-    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(mensagem)}`;
+    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(
+        mensagem
+    )}`;
     window.location.href = whatsappUrl;
 }
 

@@ -1,86 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Status do Pedido</title>
+        <link rel="stylesheet" href="../css/perfil.css" />
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Viga&display=swap"
+            rel="stylesheet"
+        />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Status do Pedido</title>
-    <link rel="stylesheet" href="../css/perfil.css" />
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <a href="#" class="logo">
-                    <img src="../img/logo.png" alt="Logo" />
-                </a>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span class="bar1"></span>
-                    <span class="bar2"></span>
-                    <span class="bar3"></span>
+    <body>
+        <header>
+            <nav>
+                <div class="container">
+                    <a href="#" class="logo">
+                        <img src="../img/logo.png" alt="Logo" />
+                    </a>
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar1"></span>
+                        <span class="bar2"></span>
+                        <span class="bar3"></span>
+                    </div>
+                    <div class="nav-links">
+                        <a href="index.html" class="button">Home</a>
+                        <a href="cardapio.html" class="button">Cardápio</a>
+                        <a href="carrinho.html" class="button">Carrinho</a>
+                        <a href="sobre.html" class="button">Sobre Nós</a>
+                        <a href="perfil.html" class="button">Perfil</a>
+                    </div>
                 </div>
-                <div class="nav-links">
-                    <a href="index.html" class="button">Home</a>
-                    <a href="cardapio.html" class="button">Cardápio</a>
-                    <a href="carrinho.html" class="button">Carrinho</a>
-                    <a href="sobre.html" class="button">Sobre Nós</a>
-                    <a href="perfil.html" class="button">Perfil</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="perfil-container">
-        <aside class="menu-lateral">
-            <button onclick="mostrarSecao('dados')">MEUS DADOS</button>
-            <button onclick="mostrarSecao('alterar')">ALTERAR DADOS</button>
-            <button onclick="mostrarSecao('pedidos')">MEUS PEDIDOS</button>
-            <button onclick="sair()">SAIR</button>
-        </aside>
+            </nav>
+        </header>
+        <div class="perfil-container">
+            <aside class="menu-lateral">
+                <button onclick="mostrarSecao('dados')">MEUS DADOS</button>
+                <button onclick="mostrarSecao('alterar')">ALTERAR DADOS</button>
+                <button onclick="mostrarSecao('pedidos')">MEUS PEDIDOS</button>
+                <button onclick="sair()">SAIR</button>
+            </aside>
 
-        <main class="conteudo">
-            <section id="dados" class="secao ativa">
-                <h2>Seus Dados</h2>
-                <p><strong>Nome:</strong> Luiz Antonio</p>
-                <p><strong>Endereço:</strong> Rua do Cruzeiro, 17</p>
-            </section>
+            <main class="conteudo">
+                <section id="dados" class="secao ativa">
+                    <h2>Seus Dados</h2>
+                    <p><strong>Nome:</strong> Luiz Antonio</p>
+                    <p><strong>Endereço:</strong> Rua do Cruzeiro, 17</p>
+                </section>
 
-            <section id="alterar" class="secao">
-                <h2>Alterar Dados</h2>
-                <form>
-                    <label>Nome: <input type="text" value="Luiz Antonio" /></label><br />
-                    <label>Endereço: <input type="text" value="Rua do Cruzeiro, 17" /></label><br />
-                    <button type="submit">Salvar</button>
-                </form>
-            </section>
+                <section id="alterar" class="secao">
+                    <h2>Alterar Dados</h2>
+                    <form>
+                        <label
+                            >Nome:
+                            <input type="text" value="Luiz Antonio" /></label
+                        ><br />
+                        <label
+                            >Endereço:
+                            <input
+                                type="text"
+                                value="Rua do Cruzeiro, 17" /></label
+                        ><br />
+                        <button type="submit">Salvar</button>
+                    </form>
+                </section>
 
-            <section id="pedidos" class="secao">
-                <h2>Histórico de Pedidos</h2>
+                <section id="pedidos" class="secao">
+                    <h2>Histórico de Pedidos</h2>
 
-                <div class="pedido">
-                    <p><strong>Pizza de calabresa G</strong><br>#4555<br>Luiz Antonio<br>Rua do Cruzeiro, 17<br>Qt: 1 -
-                        Valor R$ 50,00</p>
-                    <button class="repetir">REPETIR PEDIDO</button>
-                </div>
+                    <div class="pedido">
+                        <p>
+                            <strong>Pizza de calabresa G</strong
+                            ><br />#4555<br />Luiz Antonio<br />Rua do Cruzeiro,
+                            17<br />Qt: 1 - Valor R$ 50,00
+                        </p>
+                        <button class="repetir">REPETIR PEDIDO</button>
+                    </div>
 
-                <div class="pedido">
-                    <p><strong>Pizza de mussarela G</strong><br>#4554<br>Luiz Antonio<br>Rua do Cruzeiro, 17<br>Qt: 1 -
-                        Valor R$ 50,00</p>
-                    <button class="repetir">REPETIR PEDIDO</button>
-                </div>
+                    <div class="pedido">
+                        <p>
+                            <strong>Pizza de mussarela G</strong
+                            ><br />#4554<br />Luiz Antonio<br />Rua do Cruzeiro,
+                            17<br />Qt: 1 - Valor R$ 50,00
+                        </p>
+                        <button class="repetir">REPETIR PEDIDO</button>
+                    </div>
+                </section>
+            </main>
+        </div>
 
-            </section>
-        </main>
-    </div>
-
-    <footer>
-        <script src="../../back-end/js/mobile-menu.js"></script>
-        <script src="../../back-end/js/sessao.js"></script>
-    </footer>
-</body>
-
+        <footer>
+            <script src="../../back-end/js/mobile-menu.js"></script>
+            <script src="../../back-end/js/sessao.js"></script>
+        </footer>
+    </body>
 </html>
