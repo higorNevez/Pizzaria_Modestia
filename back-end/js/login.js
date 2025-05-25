@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
             form1.classList.remove('hidden');
         });
     } else {
-        console.error('Elementos do formulário não foram encontrados.');
+        console.error("Elementos do formulário não foram encontrados.");
     }
 });

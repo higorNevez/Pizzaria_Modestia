@@ -1,11 +1,5 @@
 <?php
-// salvar_pizza.php
-
-// Configurações do banco de dados
-$host = "localhost";
-$dbname = "u260600589_pizzaria";
-$user = "u260600589_Modestia_Pizza";
-$password = "G|o3Se>|v1";
+require 'conexao.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
@@ -22,7 +16,7 @@ try {
     if ($_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
         $extensao = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
         $nomeUnico = uniqid('pizza_' . date('Ymd_His_')) . '.' . $extensao;
-        $imagem = 'uploads/' . $nomeUnico;
+        $imagem = '../../front-end/uploads/' . $nomeUnico;
         move_uploaded_file($_FILES['imagem']['tmp_name'], $imagem);
     } else {
         throw new Exception('Erro ao fazer upload da imagem');

@@ -55,61 +55,51 @@ window.onclick = function (event) {
     }
 };
 
-document.getElementById('enderecoForm').onsubmit = function (e) {
+document.getElementById('enderecoForm').onsubmit = async function (e) {
     e.preventDefault();
+
     const nome = document.getElementById('nome').value;
     const endereco = document.getElementById('endereco').value;
     const cidade = document.getElementById('cidade').value;
     const cep = document.getElementById('cep').value;
+    const formaPagamento = document.querySelector('input[name="pagamento"]:checked').value;
 
-    alert(
-        `Pedido confirmado!\nNome: ${nome}\nEndereço: ${endereco}, ${cidade}\nCEP: ${cep}`
-    );
-    fecharModal();
-    localStorage.removeItem('carrinho');
-    carrinho = [];
-    atualizarCarrinho();
+    const itens = carrinho.map(item => ({
+        nome: item.pizza,
+        preco: item.preco,
+        quantidade: 1
+    }));
+    const total = carrinho.reduce((acc, item) => acc + item.preco, 0).toFixed(2);
+
+    try {
+        const response = await fetch('../../back-end/php/salvar_pedido.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nome: nome,
+                endereco: endereco,
+                cidade: cidade,
+                cep: cep,
+                pagamento: formaPagamento,
+                itens: itens,
+                total: total
+            })
+        });
+
+        const resultado = await response.json();
+
+        if (resultado.sucesso) {
+            alert('Pedido enviado com sucesso!');
+            localStorage.removeItem('carrinho');
+            carrinho = [];
+            atualizarCarrinho();
+            fecharModal();
+            window.location.href = "perfil.html";
+        } else {
+            alert('Erro ao enviar pedido: ' + (resultado.erro || 'Erro desconhecido'));
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Erro de conexão com o servidor.');
+    }
 };
-
-function finalizarPedido() {
-    let pedido = '';
-    let total = 0;
-    carrinho.forEach((item) => {
-        pedido += `${item.pizza} - R$ ${item.preco.toFixed(2)}\n`;
-        total += item.preco;
-    });
-
-    const formaPagamento = document.querySelector(
-        'input[name="pagamento"]:checked'
-    ).value;
-
-    const nome = document.getElementById('nome').value;
-    const endereco = document.getElementById('endereco').value;
-    const cidade = document.getElementById('cidade').value;
-    const cep = document.getElementById('cep').value;
-
-    const mensagem = `
-                *Pedido Confirmado!*
-
-                *Itens do pedido:*
-                ${pedido}
-
-                Nome: ${nome}
-                Endereço: ${endereco}, ${cidade}, CEP: ${cep}
-                
-                *Total:* R$ ${total.toFixed(2)}
-                *Forma de Pagamento:* ${formaPagamento}
-
-                Obs: Valores referente ao frete serão informados via WhatsApp
-
-                Agradecemos apreferência, se precisar de algo, é so chamar que em um instante respondemos!
-            `;
-
-    const mensagemCodificada = encodeURIComponent(mensagem);
-
-    const numeroWhatsApp = '5575991479048';
-
-    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
-
-    window.open(urlWhatsApp, '_blank');
-}

@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     width: 75%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
     position: fixed;
     z-index: -2;
     top: 150px;
@@ -13,11 +13,11 @@
 }
 
 @media screen and (max-width: 768px) {
-    .pedido {
+    .pedido{
         top: 210px;
     }
 }
-.card {
+.card { 
     display: flex;
     justify-content: space-between;
     gap: 40px;
@@ -43,7 +43,7 @@
     }
 }
 
-.value {
+.value{
     color: gray;
     margin: 5px 0;
 }
@@ -58,7 +58,7 @@
     position: relative;
 }
 .status::before {
-    content: '';
+    content: "";
     display: block;
     width: 12px;
     height: 12px;
@@ -67,7 +67,7 @@
     margin: 0 auto 10px;
 }
 .status:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 5px;
     right: -50%;
